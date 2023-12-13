@@ -14,7 +14,7 @@ release_file="$ASDF_DOWNLOAD_PATH/$TOOL_NAME"
 
 # Download binary to the download directory
 download_release "$ASDF_INSTALL_VERSION" "$release_file"
-download_release "$ASDF_INSTALL_VERSION" "$release_file.sha256"
+download_release "$ASDF_INSTALL_VERSION.sha256" "$release_file.sha256"
 
 echo "Downloaded $TOOL_NAME to $release_file"
 echo $(ls -l $ASDF_DOWNLOAD_PATH)
