@@ -73,11 +73,11 @@ download_release() {
 	# verify checksum
 	checksum=$(cat "${filename}.sha256" | awk '{print $1}')
 	checksum_file=$(sha256sum "$filename"| awk '{print $1}')
-	echo "Expected Checksum: $checksum"
-	echo "Actual Checksum: $checksum_file"
 
 	if [ "$checksum" != "$checksum_file" ]; then
 		echo "Checksum verification failed"
+		echo "Expected Checksum: $checksum"
+		echo "Actual Checksum: $checksum_file"
 		exit 1
 	else
 		echo "Checksum verification succeeded"
