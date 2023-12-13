@@ -14,22 +14,6 @@ release_file="$ASDF_DOWNLOAD_PATH/$TOOL_NAME"
 
 # Download binary to the download directory
 download_release "$ASDF_INSTALL_VERSION" "$release_file"
-download_release "$ASDF_INSTALL_VERSION.sha256" "$release_file.sha256"
-
-echo "Downloaded $TOOL_NAME to $release_file"
-echo $(ls -l $ASDF_DOWNLOAD_PATH)
-
-# verify checksum
-checksum=$(cat "${release_file}.sha256")
-checksum_file=$(sha256sum "$release_file" | awk '{print $1}')
-sleep 1000000
-
-if [ "$checksum" != "$checksum_file" ]; then
-	echo "Checksum verification failed"
-	exit 1
-else
-	echo "Checksum verification succeeded"
-fi
 
 # Make the binary executable
 chmod +x "$ASDF_DOWNLOAD_PATH/$TOOL_NAME"

@@ -68,6 +68,21 @@ download_release() {
 
 	echo "* Downloading $TOOL_NAME release $version..."
 	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
+	curl "${curl_opts[@]}" -o "${filename}.sha256" -C - "${url}.sha256" || fail "Could not download ${url}.sha256"
+
+	# verify checksum
+	checksum=$(cat "${filename}.sha256")
+	checksum_file=$(sha256sum "$filename" | awk '{print $1}')
+	echo "Expected Checksum: $checksum"
+	echo "Actual Checksum: $checksum_file"
+
+	if [ "$checksum" != "$checksum_file" ]; then
+		echo "Checksum verification failed"
+		exit 1
+	else
+		echo "Checksum verification succeeded"
+	fi
+	rm -f "${filename}.sha256"
 }
 
 install_version() {
