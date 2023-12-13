@@ -64,10 +64,25 @@ download_release() {
 
 	asset="${TOOL_NAME}_${platform}_${arch}"
 
-	url="${GH_REPO}/releases/download/${version}/${asset}"
+	url="${GH_REPO}/releases/download/v${version}/${asset}"
 
 	echo "* Downloading $TOOL_NAME release $version..."
 	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
+	curl "${curl_opts[@]}" -o "${filename}.sha256" -C - "${url}.sha256" || fail "Could not download ${url}.sha256"
+
+	# verify checksum
+	checksum=$(awk '{print $1}' <"${filename}.sha256")
+	checksum_file=$(openssl sha256 "$filename" | awk '{print $2}')
+
+	if [ "$checksum" != "$checksum_file" ]; then
+		echo "Checksum verification failed"
+		echo "Expected Checksum: $checksum"
+		echo "Actual Checksum: $checksum_file"
+		exit 1
+	else
+		echo "Checksum verification succeeded"
+	fi
+	rm -f "${filename}.sha256"
 }
 
 install_version() {
