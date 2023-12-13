@@ -16,13 +16,14 @@ release_file="$ASDF_DOWNLOAD_PATH/$TOOL_NAME"
 download_release "$ASDF_INSTALL_VERSION" "$release_file"
 download_release "$ASDF_INSTALL_VERSION" "$release_file.sha256"
 
-echo "ls -l $ASDF_DOWNLOAD_PATH"
+echo $(ls -l $ASDF_DOWNLOAD_PATH)
 
 # verify checksum
 checksum=$(cat "${release_file}.sha256")
 echo "Checksum: $checksum"
 checksum_file=$(sha256sum "$release_file" | awk '{print $1}')
 echo "Checksum file: $checksum_file"
+sleep 1000000
 
 if [ "$checksum" != "$checksum_file" ]; then
 	echo "Checksum verification failed"
