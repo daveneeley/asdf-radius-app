@@ -17,7 +17,7 @@ download_release "$ASDF_INSTALL_VERSION" "$release_file"
 download_release "$ASDF_INSTALL_VERSION" "$release_file.sha256"
 
 # verify checksum
-checksum=$(cat "$release_file.sha256")
+checksum=$(cat "${release_file}.sha256")
 checksum_file=$(sha256sum "$release_file" | awk '{print $1}')
 
 if [ "$checksum" != "$checksum_file" ]; then
