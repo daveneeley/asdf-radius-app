@@ -64,7 +64,7 @@ download_release() {
 
 	asset="${TOOL_NAME}_${platform}_${arch}"
 
-	url="${GH_REPO}/releases/download/${version}/${asset}"
+	url="${GH_REPO}/releases/download/v${version}/${asset}"
 
 	echo "* Downloading $TOOL_NAME release $version..."
 	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
