@@ -21,7 +21,6 @@ echo $(ls -l $ASDF_DOWNLOAD_PATH)
 
 # verify checksum
 checksum=$(cat "${release_file}.sha256")
-echo "Checksum: $checksum"
 checksum_file=$(sha256sum "$release_file" | awk '{print $1}')
 sleep 1000000
 
