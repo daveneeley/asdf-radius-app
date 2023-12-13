@@ -19,7 +19,7 @@
 
 # Dependencies
 
-- `bash`, `curl`, `sha256sum`, and [POSIX utilities](https://pubs.opengroup.org/onlinepubs/9699919799/idx/utilities.html).
+- `bash`, `curl`, `openssl`, and [POSIX utilities](https://pubs.opengroup.org/onlinepubs/9699919799/idx/utilities.html). `openssl` is used for download validation.
 
 # Install
 

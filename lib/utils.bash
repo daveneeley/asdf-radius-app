@@ -2,7 +2,6 @@
 
 set -euo pipefail
 
-# TODO: Ensure this is the correct GitHub homepage where releases can be downloaded for radius-app.
 GH_REPO="https://github.com/radius-project/radius"
 TOOL_NAME="rad"
 TOOL_TEST="rad --help"
