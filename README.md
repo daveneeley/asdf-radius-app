@@ -1,13 +1,17 @@
 <div align="center">
 
-# asdf-radius-app [![Build](https://github.com/daveneeley/asdf-radius-app/actions/workflows/build.yml/badge.svg)](https://github.com/daveneeley/asdf-radius-app/actions/workflows/build.yml) [![Lint](https://github.com/daveneeley/asdf-radius-app/actions/workflows/lint.yml/badge.svg)](https://github.com/daveneeley/asdf-radius-app/actions/workflows/lint.yml)
+# asdf-radius-app
 
-[radius-app](https://github.com/daveneeley/asdf-radius-app) plugin for the [asdf version manager](https://asdf-vm.com).
+[![Build](https://github.com/daveneeley/asdf-radius-app/actions/workflows/build.yml/badge.svg)](https://github.com/daveneeley/asdf-radius-app/actions/workflows/build.yml) [![Lint](https://github.com/daveneeley/asdf-radius-app/actions/workflows/lint.yml/badge.svg)](https://github.com/daveneeley/asdf-radius-app/actions/workflows/lint.yml)
+
+[radius](https://github.com/radius-project/radius) plugin for the [asdf version manager](https://asdf-vm.com). Documentation at [radapp.io](https://radapp.io/).
 
 </div>
 
 # Contents
 
+- [asdf-radius-app](#asdf-radius-app)
+- [Contents](#contents)
 - [Dependencies](#dependencies)
 - [Install](#install)
 - [Contributing](#contributing)
@@ -15,10 +19,7 @@
 
 # Dependencies
 
-**TODO: adapt this section**
-
-- `bash`, `curl`, `tar`, and [POSIX utilities](https://pubs.opengroup.org/onlinepubs/9699919799/idx/utilities.html).
-- `SOME_ENV_VAR`: set this environment variable in your shell config to load the correct version of tool x.
+- `bash`, `curl`, `sha256sum`, and [POSIX utilities](https://pubs.opengroup.org/onlinepubs/9699919799/idx/utilities.html).
 
 # Install
 

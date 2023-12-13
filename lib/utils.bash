@@ -3,8 +3,8 @@
 set -euo pipefail
 
 # TODO: Ensure this is the correct GitHub homepage where releases can be downloaded for radius-app.
-GH_REPO="https://github.com/daveneeley/asdf-radius-app"
-TOOL_NAME="radius-app"
+GH_REPO="https://github.com/radius-project/radius"
+TOOL_NAME="rad"
 TOOL_TEST="rad --help"
 
 fail() {
@@ -14,7 +14,7 @@ fail() {
 
 curl_opts=(-fsSL)
 
-# NOTE: You might want to remove this if radius-app is not hosted on GitHub releases.
+# NOTE: You might want to remove this if radius is not hosted on GitHub releases.
 if [ -n "${GITHUB_API_TOKEN:-}" ]; then
 	curl_opts=("${curl_opts[@]}" -H "Authorization: token $GITHUB_API_TOKEN")
 fi
@@ -31,18 +31,40 @@ list_github_tags() {
 }
 
 list_all_versions() {
-	# TODO: Adapt this. By default we simply list the tag names from GitHub releases.
-	# Change this function if radius-app has other means of determining installable versions.
 	list_github_tags
 }
 
 download_release() {
-	local version filename url
+	local version filename url platform arch
 	version="$1"
 	filename="$2"
+	platform="unsupported" # filled by `case` below
+	arch="unsupported"     # filled by `case` below
 
-	# TODO: Adapt the release URL convention for radius-app
-	url="$GH_REPO/archive/v${version}.tar.gz"
+	case "$(uname)" in
+	"Linux")
+		platform="linux"
+		;;
+	"Darwin")
+		platform="darwin"
+		;;
+	esac
+
+	case "$(uname -m)" in
+	"x86_64")
+		arch="amd64"
+		;;
+	"aarch64")
+		arch="arm64"
+		;;
+	"arm64")
+		arch="arm64"
+		;;
+	esac
+
+	asset="${TOOL_NAME}_${platform}_${arch}"
+
+	url="${GH_REPO}/releases/download/${version}/${asset}"
 
 	echo "* Downloading $TOOL_NAME release $version..."
 	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
@@ -61,7 +83,6 @@ install_version() {
 		mkdir -p "$install_path"
 		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
 
-		# TODO: Assert radius-app executable exists.
 		local tool_cmd
 		tool_cmd="$(echo "$TOOL_TEST" | cut -d' ' -f1)"
 		test -x "$install_path/$tool_cmd" || fail "Expected $install_path/$tool_cmd to be executable."
