@@ -2,7 +2,6 @@
 
 set -euo pipefail
 
-# TODO: Ensure this is the correct GitHub homepage where releases can be downloaded for radius-app.
 GH_REPO="https://github.com/radius-project/radius"
 TOOL_NAME="rad"
 TOOL_TEST="rad --help"
@@ -71,8 +70,8 @@ download_release() {
 	curl "${curl_opts[@]}" -o "${filename}.sha256" -C - "${url}.sha256" || fail "Could not download ${url}.sha256"
 
 	# verify checksum
-	checksum=$(cat "${filename}.sha256" | awk '{print $1}')
-	checksum_file=$(sha256sum "$filename"| awk '{print $1}')
+	checksum=$(awk '{print $1}' <"${filename}.sha256")
+	checksum_file=$(openssl sha256 "$filename" | awk '{print $2}')
 
 	if [ "$checksum" != "$checksum_file" ]; then
 		echo "Checksum verification failed"
