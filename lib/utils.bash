@@ -72,7 +72,7 @@ download_release() {
 
 	# verify checksum
 	checksum=$(awk '{print $1}' <"${filename}.sha256")
-	checksum_file=$(sha256sum "$filename" | awk '{print $1}')
+	checksum_file=$(openssl sha256 "$filename" | awk '{print $2}')
 
 	if [ "$checksum" != "$checksum_file" ]; then
 		echo "Checksum verification failed"
