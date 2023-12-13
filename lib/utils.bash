@@ -71,7 +71,7 @@ download_release() {
 	curl "${curl_opts[@]}" -o "${filename}.sha256" -C - "${url}.sha256" || fail "Could not download ${url}.sha256"
 
 	# verify checksum
-	checksum=$(cat "${filename}.sha256" | awk '{print $1}')
+	checksum=$(awk '{print $1}' < "${filename}.sha256")
 	checksum_file=$(sha256sum "$filename"| awk '{print $1}')
 
 	if [ "$checksum" != "$checksum_file" ]; then
